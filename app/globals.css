@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.react-tel-input .form-control {
+    @apply rounded-full w-2/3 py-3.5 border-0 shadow-sm ring-1 ring-inset ring-sonic-silver !important;
+}
+
+.react-tel-input .form-control:focus {
+    @apply ring-2 border-dark-grey ring-dark-grey !important;
+}

@@ -6,6 +6,8 @@ import { Inter } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import PhoneInput from "react-phone-input-2";
+import 'react-phone-input-2/lib/material.css'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -85,7 +87,7 @@ export default function Home() {
                     <div className="bg-white absolute ml-4 -mt-3 px-1.5">
                         <label
                             htmlFor="fullName"
-                            className="block text-sm font-medium leading-6 text-gray-900"
+                            className="block text-sm font-medium leading-6 text-dark-grey"
                         >
                             <p className="bg-white">Full Name</p>
                         </label>
@@ -96,7 +98,7 @@ export default function Home() {
                             id="fullName"
                             name="fullName"
                             type="text"
-                            className="block w-2/3 rounded-full border-0 px-4 py-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
+                            className="block w-2/3 rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.fullName}
@@ -111,7 +113,7 @@ export default function Home() {
                     <div className="bg-white absolute ml-4 -mt-3 px-1.5">
                         <label
                             htmlFor="email"
-                            className="block text-sm font-medium leading-6 text-gray-900"
+                            className="block text-sm font-medium leading-6 text-dark-grey"
                         >
                             Email Address
                         </label>
@@ -119,7 +121,7 @@ export default function Home() {
 
                     <div>
                         <input
-                            className="block w-2/3 rounded-full border-0 px-4 py-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
+                            className="block w-2/3 rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
                             id="email"
                             name="email"
                             type="email"
@@ -134,10 +136,43 @@ export default function Home() {
                 </div>
 
                 <div className="mb-6">
+                    <PhoneInput
+                        country={"us"}
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                        inputClass="rounded-full w-2/3"
+                    />
+                    {/* <div className="bg-white absolute ml-4 -mt-3 px-1.5">
+                        <label
+                            htmlFor="email"
+                            className="block text-sm font-medium leading-6 text-dark-grey"
+                        >
+                            Phone number
+                        </label>
+                    </div>
+                    <div className="flex w-2/3 rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6">
+                        <select
+                            id="country"
+                            name="country"
+                            autoComplete="country"
+                            className="py-0 rounded-md border-0 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm"
+                        >
+                            <option>US</option>
+                            <option>CA</option>
+                            <option>EU</option>
+                        </select>
+                        <input
+                            type="phone"
+                            className="w-full focus:outline-none"
+                        />
+                    </div> */}
+                </div>
+
+                <div className="mb-6">
                     <div className="bg-white absolute ml-4 -mt-3 px-1.5">
                         <label
                             htmlFor="password"
-                            className="block text-sm font-medium leading-6 text-gray-900"
+                            className="block text-sm font-medium leading-6 text-dark-grey"
                         >
                             Password
                         </label>
@@ -145,7 +180,7 @@ export default function Home() {
 
                     <div>
                         <input
-                            className="block w-2/3 rounded-full border-0 px-4 py-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
+                            className="block w-2/3 rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
                             id="password"
                             name="password"
                             type="password"
