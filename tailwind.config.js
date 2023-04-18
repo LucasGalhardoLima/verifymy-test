@@ -25,6 +25,10 @@ module.exports = {
             dropShadow: {
                 "2xl": "0px 5px 15px rgba(0, 0, 0, 0.75)",
             },
+            fontSize: {
+              '0.5xl': ['19px', '19px'],
+              '4.5xl': ['36px', '46px'],
+            }
         },
     },
     plugins: [],

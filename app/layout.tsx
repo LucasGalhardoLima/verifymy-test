@@ -16,8 +16,8 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <div className="grid grid-cols-2 gap-4">
-                    <div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="hidden md:block">
                         <Image
                             className="bg-contain"
                             src="/bg.svg"
@@ -27,20 +27,8 @@ export default function RootLayout({
                             priority
                         />
                     </div>
-                    <div className="py-12 pr-12 pl-[89px]">
-                        <div className="flex justify-between">
-                            <Image
-                                src="/logo.svg"
-                                width={135}
-                                height={25}
-                                alt="logo"
-                                priority
-                            />
-                            <div className="shadow-lg p-3 text-center rounded-full bg-white w-[50px]">
-                                <strong className="text-lg">5</strong>
-                                <span className="text-sm">/5</span>
-                            </div>
-                        </div>
+                    <div className="pl-6 pr-5 pt-5 md:py-12 md:pr-12 lg:pl-[89px]">
+                        {children}
                     </div>
                 </div>
             </body>

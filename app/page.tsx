@@ -1,106 +1,198 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+/* eslint-disable react/no-unescaped-entities */
+"use client";
 
-const inter = Inter({ subsets: ['latin'] })
+import Image from "next/image";
+import { Inter } from "next/font/google";
+import Link from "next/link";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
+const inter = Inter({ subsets: ["latin"] });
+
+type Errors = {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+};
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-      </div>
+    const formik = useFormik({
+        initialValues: {
+            firstName: "",
+            lastName: "",
+            email: "",
+        },
+        validationSchema: Yup.object({
+            firstName: Yup.string()
+                .max(15, "Must be 15 characters or less")
+                .required("Required"),
+            lastName: Yup.string()
+                .max(20, "Must be 20 characters or less")
+                .required("Required"),
+            email: Yup.string()
+                .email("Invalid email address")
+                .required("Required"),
+        }),
+        onSubmit: (values) => {
+            alert(JSON.stringify(values, null, 2));
+        },
+    });
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+    return (
+        <main>
+            <section className="flex items-center justify-between">
+                <Image
+                    className="hidden md:block"
+                    src="/logo.svg"
+                    width={135}
+                    height={25}
+                    alt="logo"
+                    priority
+                />
+                <div className="md:hidden flex items-center">
+                    <div className="w-[24px] h-[24px] rounded-full bg-grey flex items-center justify-center hover:bg-white-smoke cursor-pointer">
+                        <Image
+                            src="/back_icon.svg"
+                            width={9}
+                            height={9}
+                            alt="back icon"
+                            priority
+                        />
+                    </div>
+                    <h1 className="ml-2 text-0.5xl font-semibold">
+                        Join VerifyMyAge
+                    </h1>
+                </div>
+                <div className="shadow-lg p-3 text-center rounded-full bg-white w-[50px]">
+                    <strong className="text-lg">5</strong>
+                    <span className="text-sm">/5</span>
+                </div>
+            </section>
+            <p className="text-sm font-extralight md:hidden ml-[35px]">
+                Let's start by setting up
+                <br /> your login details.
+            </p>
+            <section className="hidden md:flex w-[44px] h-[44px] mt-[66px] rounded-full bg-grey items-center justify-center hover:bg-white-smoke cursor-pointer">
+                <Image
+                    src="/back_icon.svg"
+                    width={14}
+                    height={14}
+                    alt="back icon"
+                    priority
+                />
+            </section>
+            <section className="hidden md:block mt-5">
+                <h1 className="text-4.5xl font-semibold">Join VerifyMyAge</h1>
+                <p className="text-lg font-extralight">
+                    Let's start by setting up your login details.
+                </p>
+            </section>
+            <form onSubmit={formik.handleSubmit}>
+                <label htmlFor="firstName">First Name</label>
+                <input
+                    id="firstName"
+                    name="firstName"
+                    type="text"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.firstName}
+                />
+                {formik.touched.firstName && formik.errors.firstName ? (
+                    <div>{formik.errors.firstName}</div>
+                ) : null}
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                    id="lastName"
+                    name="lastName"
+                    type="text"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.lastName}
+                />
+                {formik.touched.lastName && formik.errors.lastName ? (
+                    <div>{formik.errors.lastName}</div>
+                ) : null}
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+                <label htmlFor="email">Email Address</label>
+                <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.email}
+                />
+                {formik.touched.email && formik.errors.email ? (
+                    <div>{formik.errors.email}</div>
+                ) : null}
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
+                <button type="submit">Submit</button>
+            </form>
+            {/* <form action="/send-data-here" method="post">
+                <label
+                    htmlFor="name"
+                    className="ml-px block pl-4 text-sm font-medium leading-6 text-gray-900"
+                >
+                    Name
+                </label>
+                <div className="mt-2">
+                    <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        className="block w-full rounded-full border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        placeholder="Jane Smith"
+                    />
+                </div>
+                <label
+                    htmlFor="name"
+                    className="ml-px block pl-4 text-sm font-medium leading-6 text-gray-900"
+                >
+                    Name
+                </label>
+                <div className="mt-2">
+                    <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        className="block w-full rounded-full border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        placeholder="Jane Smith"
+                    />
+                </div>
+                <label
+                    htmlFor="name"
+                    className="ml-px block pl-4 text-sm font-medium leading-6 text-gray-900"
+                >
+                    Name
+                </label>
+                <div className="mt-2">
+                    <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        className="block w-full rounded-full border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        placeholder="Jane Smith"
+                    />
+                </div>
+                <label
+                    htmlFor="name"
+                    className="ml-px block pl-4 text-sm font-medium leading-6 text-gray-900"
+                >
+                    Name
+                </label>
+                <div className="mt-2">
+                    <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        className="block w-full rounded-full border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        placeholder="Jane Smith"
+                    />
+                </div>
+            </form> */}
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+            <Link href="/verification-success">Next</Link>
+        </main>
+    );
 }
