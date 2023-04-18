@@ -3,38 +3,31 @@
 
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 const inter = Inter({ subsets: ["latin"] });
 
-type Errors = {
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-};
-
 export default function Home() {
+    const router = useRouter();
     const formik = useFormik({
         initialValues: {
-            firstName: "",
-            lastName: "",
+            fullName: "",
             email: "",
+            password: "",
         },
         validationSchema: Yup.object({
-            firstName: Yup.string()
+            fullName: Yup.string()
                 .max(15, "Must be 15 characters or less")
-                .required("Required"),
-            lastName: Yup.string()
-                .max(20, "Must be 20 characters or less")
                 .required("Required"),
             email: Yup.string()
                 .email("Invalid email address")
                 .required("Required"),
+            password: Yup.string().required("Required"),
         }),
-        onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
+        onSubmit: () => {
+            router.push("/verification-success");
         },
     });
 
@@ -87,112 +80,130 @@ export default function Home() {
                     Let's start by setting up your login details.
                 </p>
             </section>
-            <form onSubmit={formik.handleSubmit}>
-                <label htmlFor="firstName">First Name</label>
-                <input
-                    id="firstName"
-                    name="firstName"
-                    type="text"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.firstName}
-                />
-                {formik.touched.firstName && formik.errors.firstName ? (
-                    <div>{formik.errors.firstName}</div>
-                ) : null}
+            <form className="mt-[61px]" onSubmit={formik.handleSubmit}>
+                <div className="mb-6">
+                    <div className="bg-white absolute ml-4 -mt-3 px-1.5">
+                        <label
+                            htmlFor="fullName"
+                            className="block text-sm font-medium leading-6 text-gray-900"
+                        >
+                            <p className="bg-white">Full Name</p>
+                        </label>
+                    </div>
 
-                <label htmlFor="lastName">Last Name</label>
-                <input
-                    id="lastName"
-                    name="lastName"
-                    type="text"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.lastName}
-                />
-                {formik.touched.lastName && formik.errors.lastName ? (
-                    <div>{formik.errors.lastName}</div>
-                ) : null}
+                    <div>
+                        <input
+                            id="fullName"
+                            name="fullName"
+                            type="text"
+                            className="block w-2/3 rounded-full border-0 px-4 py-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.fullName}
+                        />
+                        {formik.touched.fullName && formik.errors.fullName ? (
+                            <div>{formik.errors.fullName}</div>
+                        ) : null}
+                    </div>
+                </div>
 
-                <label htmlFor="email">Email Address</label>
-                <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.email}
-                />
-                {formik.touched.email && formik.errors.email ? (
-                    <div>{formik.errors.email}</div>
-                ) : null}
+                <div className="mb-6">
+                    <div className="bg-white absolute ml-4 -mt-3 px-1.5">
+                        <label
+                            htmlFor="email"
+                            className="block text-sm font-medium leading-6 text-gray-900"
+                        >
+                            Email Address
+                        </label>
+                    </div>
 
-                <button type="submit">Submit</button>
+                    <div>
+                        <input
+                            className="block w-2/3 rounded-full border-0 px-4 py-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
+                            id="email"
+                            name="email"
+                            type="email"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.email}
+                        />
+                        {formik.touched.email && formik.errors.email ? (
+                            <div>{formik.errors.email}</div>
+                        ) : null}
+                    </div>
+                </div>
+
+                <div className="mb-6">
+                    <div className="bg-white absolute ml-4 -mt-3 px-1.5">
+                        <label
+                            htmlFor="password"
+                            className="block text-sm font-medium leading-6 text-gray-900"
+                        >
+                            Password
+                        </label>
+                    </div>
+
+                    <div>
+                        <input
+                            className="block w-2/3 rounded-full border-0 px-4 py-3.5 text-gray-900 shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
+                            id="password"
+                            name="password"
+                            type="password"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.password}
+                        />
+                        {formik.touched.password && formik.errors.password ? (
+                            <div>{formik.errors.password}</div>
+                        ) : null}
+                    </div>
+                </div>
+
+                <div className="relative flex items-center mt-7.5">
+                    <div className="flex h-6 items-center">
+                        <input
+                            id="offers"
+                            aria-describedby="offers-description"
+                            name="offers"
+                            type="checkbox"
+                            className="h-6 w-6 rounded border-gray-300 text-light-yellow focus:ring-light-yellow"
+                        />
+                    </div>
+                    <div className="ml-4 text-sm leading-3">
+                        <span
+                            id="offers-description"
+                            className="text-dark-grey text-xs"
+                        >
+                            Tick this box to confirm you’ve read and agreed to
+                            our Terms and Privacy Policy.
+                        </span>
+                    </div>
+                </div>
+
+                <div className="mt-[63px] flex items-center">
+                    <button
+                        className="p-7 bg-light-yellow rounded-4xl flex items-center"
+                        type="submit"
+                    >
+                        <Image
+                            className="mr-2.5"
+                            src="/lock_icon.svg"
+                            width={10}
+                            height={10}
+                            alt="lock icon"
+                            priority
+                        />
+                        Save
+                    </button>
+
+                    <button
+                        className="ml-5 p-7 rounded-4xl border border-dark-grey"
+                        type="button"
+                    >
+                        Got a VerifyMyAge account? Sign in
+                    </button>
+                </div>
             </form>
-            {/* <form action="/send-data-here" method="post">
-                <label
-                    htmlFor="name"
-                    className="ml-px block pl-4 text-sm font-medium leading-6 text-gray-900"
-                >
-                    Name
-                </label>
-                <div className="mt-2">
-                    <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        className="block w-full rounded-full border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="Jane Smith"
-                    />
-                </div>
-                <label
-                    htmlFor="name"
-                    className="ml-px block pl-4 text-sm font-medium leading-6 text-gray-900"
-                >
-                    Name
-                </label>
-                <div className="mt-2">
-                    <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        className="block w-full rounded-full border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="Jane Smith"
-                    />
-                </div>
-                <label
-                    htmlFor="name"
-                    className="ml-px block pl-4 text-sm font-medium leading-6 text-gray-900"
-                >
-                    Name
-                </label>
-                <div className="mt-2">
-                    <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        className="block w-full rounded-full border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="Jane Smith"
-                    />
-                </div>
-                <label
-                    htmlFor="name"
-                    className="ml-px block pl-4 text-sm font-medium leading-6 text-gray-900"
-                >
-                    Name
-                </label>
-                <div className="mt-2">
-                    <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        className="block w-full rounded-full border-0 px-4 py-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="Jane Smith"
-                    />
-                </div>
-            </form> */}
-
-            <Link href="/verification-success">Next</Link>
         </main>
     );
 }
