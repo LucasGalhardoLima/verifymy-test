@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import PhoneInput from "react-phone-input-2";
-import 'react-phone-input-2/lib/material.css'
+import "react-phone-input-2/lib/material.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +17,7 @@ export default function Home() {
         initialValues: {
             fullName: "",
             email: "",
+            mobile: "",
             password: "",
         },
         validationSchema: Yup.object({
@@ -26,6 +27,7 @@ export default function Home() {
             email: Yup.string()
                 .email("Invalid email address")
                 .required("Required"),
+            mobile: Yup.string().required("Required"),
             password: Yup.string().required("Required"),
         }),
         onSubmit: () => {
@@ -84,33 +86,33 @@ export default function Home() {
             </section>
             <form className="mt-[61px]" onSubmit={formik.handleSubmit}>
                 <div className="mb-6">
-                    <div className="bg-white absolute ml-4 -mt-3 px-1.5">
+                    <div className="bg-white-smoke md:bg-white absolute ml-4 -mt-3 px-1.5">
                         <label
                             htmlFor="fullName"
                             className="block text-sm font-medium leading-6 text-dark-grey"
                         >
-                            <p className="bg-white">Full Name</p>
+                            Full Name
                         </label>
                     </div>
 
                     <div>
                         <input
+                            className="bg-white-smoke md:bg-white block w-full md:w-2/3 rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
                             id="fullName"
                             name="fullName"
                             type="text"
-                            className="block w-2/3 rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.fullName}
                         />
                         {formik.touched.fullName && formik.errors.fullName ? (
-                            <div>{formik.errors.fullName}</div>
+                            <p className="text-warning text-xs font-semibold ml-2">{formik.errors.fullName}</p>
                         ) : null}
                     </div>
                 </div>
 
                 <div className="mb-6">
-                    <div className="bg-white absolute ml-4 -mt-3 px-1.5">
+                    <div className="bg-white-smoke md:bg-white absolute ml-4 -mt-3 px-1.5">
                         <label
                             htmlFor="email"
                             className="block text-sm font-medium leading-6 text-dark-grey"
@@ -121,7 +123,7 @@ export default function Home() {
 
                     <div>
                         <input
-                            className="block w-2/3 rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
+                            className="bg-white-smoke md:bg-white block w-full md:w-2/3 rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
                             id="email"
                             name="email"
                             type="email"
@@ -130,7 +132,7 @@ export default function Home() {
                             value={formik.values.email}
                         />
                         {formik.touched.email && formik.errors.email ? (
-                            <div>{formik.errors.email}</div>
+                            <p className="text-warning text-xs font-semibold ml-2">{formik.errors.email}</p>
                         ) : null}
                     </div>
                 </div>
@@ -138,38 +140,17 @@ export default function Home() {
                 <div className="mb-6">
                     <PhoneInput
                         country={"us"}
-                        value={formik.values.email}
+                        value={formik.values.mobile}
                         onChange={formik.handleChange}
-                        inputClass="rounded-full w-2/3"
+                        specialLabel="Mobile"
                     />
-                    {/* <div className="bg-white absolute ml-4 -mt-3 px-1.5">
-                        <label
-                            htmlFor="email"
-                            className="block text-sm font-medium leading-6 text-dark-grey"
-                        >
-                            Phone number
-                        </label>
-                    </div>
-                    <div className="flex w-2/3 rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6">
-                        <select
-                            id="country"
-                            name="country"
-                            autoComplete="country"
-                            className="py-0 rounded-md border-0 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm"
-                        >
-                            <option>US</option>
-                            <option>CA</option>
-                            <option>EU</option>
-                        </select>
-                        <input
-                            type="phone"
-                            className="w-full focus:outline-none"
-                        />
-                    </div> */}
+                    {formik.touched.mobile && formik.errors.mobile ? (
+                            <p className="text-warning text-xs font-semibold ml-2">{formik.errors.mobile}</p>
+                        ) : null}
                 </div>
 
                 <div className="mb-6">
-                    <div className="bg-white absolute ml-4 -mt-3 px-1.5">
+                    <div className="bg-white-smoke md:bg-white absolute ml-4 -mt-3 px-1.5">
                         <label
                             htmlFor="password"
                             className="block text-sm font-medium leading-6 text-dark-grey"
@@ -180,7 +161,7 @@ export default function Home() {
 
                     <div>
                         <input
-                            className="block w-2/3 rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
+                            className="bg-white-smoke md:bg-white block w-full md:w-2/3 rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
                             id="password"
                             name="password"
                             type="password"
@@ -189,7 +170,7 @@ export default function Home() {
                             value={formik.values.password}
                         />
                         {formik.touched.password && formik.errors.password ? (
-                            <div>{formik.errors.password}</div>
+                            <p className="text-warning text-xs font-semibold ml-2">{formik.errors.password}</p>
                         ) : null}
                     </div>
                 </div>
@@ -215,9 +196,9 @@ export default function Home() {
                     </div>
                 </div>
 
-                <div className="mt-[63px] flex items-center">
+                <div className="mt-[63px] grid-cols-1 md:flex md:items-center">
                     <button
-                        className="p-7 bg-light-yellow rounded-4xl flex items-center"
+                        className="w-full md:w-auto p-3.5 md:p-7 mb-5 md:mb-0 bg-light-yellow rounded-4xl flex items-center justify-center"
                         type="submit"
                     >
                         <Image
@@ -232,7 +213,7 @@ export default function Home() {
                     </button>
 
                     <button
-                        className="ml-5 p-7 rounded-4xl border border-dark-grey"
+                        className="w-full md:w-auto md:ml-5 p-3.5 md:p-7 rounded-4xl border border-dark-grey"
                         type="button"
                     >
                         Got a VerifyMyAge account? Sign in
