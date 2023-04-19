@@ -7,12 +7,15 @@ import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import PhoneInput from "react-phone-input-2";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
 import "react-phone-input-2/lib/material.css";
+import { useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
     const router = useRouter();
+    const [showPassword, setShowPassword] = useState(false);
     const formik = useFormik({
         initialValues: {
             fullName: "",
@@ -27,13 +30,17 @@ export default function Home() {
             email: Yup.string()
                 .email("Invalid email address")
                 .required("Required"),
-            mobile: Yup.string().required("Required"),
             password: Yup.string().required("Required"),
         }),
         onSubmit: () => {
-            router.push("/verification-success");
+            // router.push("/verification-success");
+            console.log(formik.values);
         },
     });
+
+    const handlePhoneChange = (val: string) => {
+        formik.setFieldValue("mobile", val);
+    };
 
     return (
         <main>
@@ -84,12 +91,20 @@ export default function Home() {
                     Let's start by setting up your login details.
                 </p>
             </section>
-            <form className="mt-[61px]" onSubmit={formik.handleSubmit}>
+            <form
+                className="mt-[61px] w-full md:w-2/3"
+                onSubmit={formik.handleSubmit}
+            >
                 <div className="mb-6">
                     <div className="bg-white-smoke md:bg-white absolute ml-4 -mt-3 px-1.5">
                         <label
                             htmlFor="fullName"
-                            className={`${formik.touched.fullName && formik.errors.fullName ? 'text-warning' : 'text-dark-grey'} block text-sm font-medium leading-6`}
+                            className={`${
+                                formik.touched.fullName &&
+                                formik.errors.fullName
+                                    ? "text-warning"
+                                    : "text-dark-grey"
+                            } block text-sm font-medium leading-6`}
                         >
                             Full Name
                         </label>
@@ -97,7 +112,12 @@ export default function Home() {
 
                     <div>
                         <input
-                            className={`${formik.touched.fullName && formik.errors.fullName ? 'ring-warning' : 'ring-sonic-silver focus:ring-dark-grey' } bg-white-smoke md:bg-white block w-full md:w-2/3 rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6`}
+                            className={`${
+                                formik.touched.fullName &&
+                                formik.errors.fullName
+                                    ? "ring-warning"
+                                    : "ring-sonic-silver focus:ring-dark-grey"
+                            } bg-white-smoke md:bg-white block w-full rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6`}
                             id="fullName"
                             name="fullName"
                             type="text"
@@ -117,7 +137,11 @@ export default function Home() {
                     <div className="bg-white-smoke md:bg-white absolute ml-4 -mt-3 px-1.5">
                         <label
                             htmlFor="email"
-                            className={`${formik.touched.email && formik.errors.email ? 'text-warning' : 'text-dark-grey'} block text-sm font-medium leading-6`}
+                            className={`${
+                                formik.touched.email && formik.errors.email
+                                    ? "text-warning"
+                                    : "text-dark-grey"
+                            } block text-sm font-medium leading-6`}
                         >
                             Email Address
                         </label>
@@ -125,7 +149,11 @@ export default function Home() {
 
                     <div>
                         <input
-                            className={`${formik.touched.email && formik.errors.email ? 'ring-warning' : 'ring-sonic-silver focus:ring-dark-grey' } bg-white-smoke md:bg-white block w-full md:w-2/3 rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6`}
+                            className={`${
+                                formik.touched.email && formik.errors.email
+                                    ? "ring-warning"
+                                    : "ring-sonic-silver focus:ring-dark-grey"
+                            } bg-white-smoke md:bg-white block w-full rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6`}
                             id="email"
                             name="email"
                             type="email"
@@ -143,20 +171,15 @@ export default function Home() {
 
                 <div className="mb-6">
                     <PhoneInput
-                        country={"us"}
+                        country={"gb"}
                         value={formik.values.mobile}
-                        onChange={formik.handleChange}
+                        onChange={handlePhoneChange}
                         specialLabel="Mobile"
                     />
-                    {formik.touched.mobile && formik.errors.mobile ? (
-                        <p className="text-warning text-xs font-semibold ml-2">
-                            {formik.errors.mobile}
-                        </p>
-                    ) : null}
                 </div>
 
                 <div className="mb-6">
-                    <div className="bg-white-smoke md:bg-white absolute ml-4 -mt-3 px-1.5">
+                    <div className="bg-white-smoke md:bg-white absolute ml-4 -mt-3 px-1.5 z-10">
                         <label
                             htmlFor="password"
                             className="block text-sm font-medium leading-6 text-dark-grey"
@@ -165,16 +188,35 @@ export default function Home() {
                         </label>
                     </div>
 
-                    <div>
+                    <div className="relative mt-2 rounded-md">
                         <input
-                            className="bg-white-smoke md:bg-white block w-full md:w-2/3 rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
+                            className="bg-white-smoke md:bg-white block w-full rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
                             id="password"
                             name="password"
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.password}
                         />
+                        <div className="cursor-pointer absolute inset-y-0 right-0 flex items-center pr-5">
+                            {!showPassword ? (
+                                <EyeIcon
+                                    className="h-5 w-5 text-sonic-silver"
+                                    aria-hidden="true"
+                                    onClick={() =>
+                                        setShowPassword(!showPassword)
+                                    }
+                                />
+                            ) : (
+                                <EyeSlashIcon
+                                    className="h-5 w-5 text-sonic-silver"
+                                    aria-hidden="true"
+                                    onClick={() =>
+                                        setShowPassword(!showPassword)
+                                    }
+                                />
+                            )}
+                        </div>
                         {formik.touched.password && formik.errors.password ? (
                             <p className="text-warning text-xs font-semibold ml-2">
                                 {formik.errors.password}
@@ -182,6 +224,32 @@ export default function Home() {
                         ) : null}
                     </div>
                 </div>
+
+                {/* <div>
+                    <label
+                        htmlFor="account-number"
+                        className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                        Account number
+                    </label>
+                    <div className="relative mt-2 rounded-md shadow-sm">
+                        <input
+                            className="bg-white-smoke md:bg-white block w-full rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
+                            id="password"
+                            name="password"
+                            type="password"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            value={formik.values.password}
+                        />
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                            <EyeIcon
+                                className="h-5 w-5 text-gray-400"
+                                aria-hidden="true"
+                            />
+                        </div>
+                    </div>
+                </div> */}
 
                 <div className="relative flex items-center mt-7.5">
                     <div className="flex h-6 items-center">
