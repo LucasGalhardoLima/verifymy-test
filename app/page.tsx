@@ -89,7 +89,7 @@ export default function Home() {
                     <div className="bg-white-smoke md:bg-white absolute ml-4 -mt-3 px-1.5">
                         <label
                             htmlFor="fullName"
-                            className="block text-sm font-medium leading-6 text-dark-grey"
+                            className={`${formik.touched.fullName && formik.errors.fullName ? 'text-warning' : 'text-dark-grey'} block text-sm font-medium leading-6`}
                         >
                             Full Name
                         </label>
@@ -97,7 +97,7 @@ export default function Home() {
 
                     <div>
                         <input
-                            className="bg-white-smoke md:bg-white block w-full md:w-2/3 rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
+                            className={`${formik.touched.fullName && formik.errors.fullName ? 'ring-warning' : 'ring-sonic-silver focus:ring-dark-grey' } bg-white-smoke md:bg-white block w-full md:w-2/3 rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6`}
                             id="fullName"
                             name="fullName"
                             type="text"
@@ -106,7 +106,9 @@ export default function Home() {
                             value={formik.values.fullName}
                         />
                         {formik.touched.fullName && formik.errors.fullName ? (
-                            <p className="text-warning text-xs font-semibold ml-2">{formik.errors.fullName}</p>
+                            <p className="text-warning text-xs font-semibold ml-2">
+                                {formik.errors.fullName}
+                            </p>
                         ) : null}
                     </div>
                 </div>
@@ -115,7 +117,7 @@ export default function Home() {
                     <div className="bg-white-smoke md:bg-white absolute ml-4 -mt-3 px-1.5">
                         <label
                             htmlFor="email"
-                            className="block text-sm font-medium leading-6 text-dark-grey"
+                            className={`${formik.touched.email && formik.errors.email ? 'text-warning' : 'text-dark-grey'} block text-sm font-medium leading-6`}
                         >
                             Email Address
                         </label>
@@ -123,7 +125,7 @@ export default function Home() {
 
                     <div>
                         <input
-                            className="bg-white-smoke md:bg-white block w-full md:w-2/3 rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
+                            className={`${formik.touched.email && formik.errors.email ? 'ring-warning' : 'ring-sonic-silver focus:ring-dark-grey' } bg-white-smoke md:bg-white block w-full md:w-2/3 rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6`}
                             id="email"
                             name="email"
                             type="email"
@@ -132,7 +134,9 @@ export default function Home() {
                             value={formik.values.email}
                         />
                         {formik.touched.email && formik.errors.email ? (
-                            <p className="text-warning text-xs font-semibold ml-2">{formik.errors.email}</p>
+                            <p className="text-warning text-xs font-semibold ml-2">
+                                {formik.errors.email}
+                            </p>
                         ) : null}
                     </div>
                 </div>
@@ -145,8 +149,10 @@ export default function Home() {
                         specialLabel="Mobile"
                     />
                     {formik.touched.mobile && formik.errors.mobile ? (
-                            <p className="text-warning text-xs font-semibold ml-2">{formik.errors.mobile}</p>
-                        ) : null}
+                        <p className="text-warning text-xs font-semibold ml-2">
+                            {formik.errors.mobile}
+                        </p>
+                    ) : null}
                 </div>
 
                 <div className="mb-6">
@@ -170,7 +176,9 @@ export default function Home() {
                             value={formik.values.password}
                         />
                         {formik.touched.password && formik.errors.password ? (
-                            <p className="text-warning text-xs font-semibold ml-2">{formik.errors.password}</p>
+                            <p className="text-warning text-xs font-semibold ml-2">
+                                {formik.errors.password}
+                            </p>
                         ) : null}
                     </div>
                 </div>
