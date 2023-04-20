@@ -23,12 +23,14 @@ module.exports = {
                     "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
             },
             dropShadow: {
-                "2xl": "0px 5px 15px rgba(0, 0, 0, 0.75)",
+                "2xl": "0px 5px 15px rgba(0, 0, 0, 0.35)",
                 "3xl": "0px 5px 25px rgba(0, 0, 0, 0.25)",
             },
             fontSize: {
-                "0.5xl": ["19px", "19px"],
+                'xxs': ["10px", "10px"],
+                sm: ["14px", "14px"],
                 lg: ["18px", "20px"],
+                "0.5xl": ["19px", "19px"],
                 "2xl": ["24px", "24px"],
                 "4.5xl": ["36px", "46px"],
             },
@@ -37,6 +39,7 @@ module.exports = {
                 7.5: "30px",
             },
             borderRadius: {
+                "2xl": "20px",
                 "3.5xl": "30px",
                 "4xl": "35px",
             },
