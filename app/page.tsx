@@ -7,7 +7,11 @@ import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import PhoneInput from "react-phone-input-2";
-import { EyeIcon, EyeSlashIcon, LockClosedIcon } from "@heroicons/react/20/solid";
+import {
+    EyeIcon,
+    EyeSlashIcon,
+    LockClosedIcon,
+} from "@heroicons/react/20/solid";
 import "react-phone-input-2/lib/material.css";
 import { useState } from "react";
 
@@ -16,7 +20,7 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
-    const [isValidForm, setIsValidForm] = useState(true);
+    const [isValidForm, setIsValidForm] = useState(false);
     const formik = useFormik({
         initialValues: {
             fullName: "",
@@ -49,7 +53,7 @@ export default function Home() {
             <main>
                 <section className="flex items-center justify-between">
                     <Image
-                        className={isValidForm ? '' : `hidden md:block`}
+                        className={isValidForm ? "" : `hidden md:block`}
                         src="/logo.svg"
                         width={135}
                         height={25}
@@ -91,22 +95,28 @@ export default function Home() {
                     </div>
                     <div className="-mt-5 relative md:hidden pt-14 pb-10 px-5 bg-white rounded-b-2xl drop-shadow z-0">
                         <p className="text-sm font-extralight text-center">
-                            You'll be automatically verified for all future <br /> orders.
-                            Your orders will be dispatched <br /> without delay.
+                            You'll be automatically verified for all future{" "}
+                            <br /> orders. Your orders will be dispatched <br />{" "}
+                            without delay.
                         </p>
                     </div>
-                    <hr className="mt-[25px] border-foggy-grey" />
-                    <p className="text-xxs font-light flex text-center justify-center items-center text-foggy-grey my-3"> <LockClosedIcon
-                                    className="h-2.5 w-2.5 text-foggy-grey mr-1.5"
-                                    aria-hidden="true"
-                                /> Secured by <Image
-                                className="ml-1.5"
-                                src="/vm_logo.svg"
-                                width={76}
-                                height={18}
-                                alt="logo"
-                                priority
-                            /></p>
+                    <hr className="mt-[25px] border-foggy-grey md:hidden" />
+                    <p className="text-xxs font-light flex text-center justify-center items-center text-foggy-grey my-3 md:hidden">
+                        {" "}
+                        <LockClosedIcon
+                            className="h-2.5 w-2.5 text-foggy-grey mr-1.5"
+                            aria-hidden="true"
+                        />{" "}
+                        Secured by{" "}
+                        <Image
+                            className="ml-1.5"
+                            src="/vm_logo.svg"
+                            width={76}
+                            height={18}
+                            alt="logo"
+                            priority
+                        />
+                    </p>
                 </section>
             </main>
         );
@@ -320,13 +330,56 @@ export default function Home() {
                             id="offers-description"
                             className="text-dark-grey text-xs"
                         >
-                            Tick this box to confirm you’ve read and agreed to
-                            our Terms and Privacy Policy.
+                            Tick this box to confirm you've read and agreed to
+                            our <span className="underline">Terms</span> and <span className="underline">Privacy Policy</span>.
                         </span>
                     </div>
                 </div>
 
-                <div className="mt-[63px] grid-cols-1 md:flex md:items-center">
+                <hr className="mt-[25px] border-foggy-grey md:hidden" />
+                <p className="text-xxs font-light flex text-center justify-center items-center text-foggy-grey my-3 md:hidden">
+                    {" "}
+                    <LockClosedIcon
+                        className="h-2.5 w-2.5 text-foggy-grey mr-1.5"
+                        aria-hidden="true"
+                    />{" "}
+                    Secured by{" "}
+                    <Image
+                        className="ml-1.5"
+                        src="/vm_logo.svg"
+                        width={76}
+                        height={18}
+                        alt="logo"
+                        priority
+                    />
+                </p>
+
+                <div className="md:hidden grid-cols-1 absolute bottom-0 left-0 w-full px-6 pb-5 bg-white">
+                    <hr className="border-foggy-grey mb-5" />
+                    <button
+                        className="w-full p-3.5 mb-5 bg-light-yellow rounded-4xl flex items-center justify-center"
+                        type="submit"
+                    >
+                        <Image
+                            className="mr-2.5"
+                            src="/lock_icon.svg"
+                            width={10}
+                            height={10}
+                            alt="lock icon"
+                            priority
+                        />
+                        Save
+                    </button>
+
+                    <button
+                        className="w-full md:w-auto md:ml-5 p-3.5 md:p-7 rounded-4xl border border-dark-grey"
+                        type="button"
+                    >
+                        Got a VerifyMyAge account? Sign in
+                    </button>
+                </div>
+
+                <div className="mt-[63px] grid-cols-1 md:flex md:items-center hidden md:block">
                     <button
                         className="w-full md:w-auto p-3.5 md:p-7 mb-5 md:mb-0 bg-light-yellow rounded-4xl flex items-center justify-center"
                         type="submit"
