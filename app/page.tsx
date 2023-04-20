@@ -18,7 +18,6 @@ import { useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-    const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
     const [isValidForm, setIsValidForm] = useState(false);
     const formik = useFormik({
@@ -38,8 +37,6 @@ export default function Home() {
             password: Yup.string().required("Required"),
         }),
         onSubmit: () => {
-            // router.push("/verification-success");
-            console.log(formik.isValid);
             if (formik.isValid) setIsValidForm(true);
         },
     });
@@ -50,7 +47,7 @@ export default function Home() {
 
     if (isValidForm) {
         return (
-            <main>
+            <main id="success-card">
                 <section className="flex items-center justify-between">
                     <Image
                         className={isValidForm ? "" : `hidden md:block`}
@@ -359,6 +356,7 @@ export default function Home() {
                     <button
                         className="w-full p-3.5 mb-5 bg-light-yellow rounded-4xl flex items-center justify-center"
                         type="submit"
+                        id="mobile-submit-button"
                     >
                         <Image
                             className="mr-2.5"
@@ -372,17 +370,18 @@ export default function Home() {
                     </button>
 
                     <button
-                        className="w-full md:w-auto md:ml-5 p-3.5 md:p-7 rounded-4xl border border-dark-grey"
+                        className="w-full p-3.5 rounded-4xl border border-dark-grey"
                         type="button"
                     >
                         Got a VerifyMyAge account? Sign in
                     </button>
                 </div>
 
-                <div className="mt-[63px] grid-cols-1 md:flex md:items-center hidden md:block">
+                <div className="mt-[63px] md:flex items-center hidden">
                     <button
-                        className="w-full md:w-auto p-3.5 md:p-7 mb-5 md:mb-0 bg-light-yellow rounded-4xl flex items-center justify-center"
+                        className="w-auto p-7 mb-0 bg-light-yellow rounded-4xl flex items-center justify-center"
                         type="submit"
+                        id="desktop-submit-button"
                     >
                         <Image
                             className="mr-2.5"
@@ -396,7 +395,7 @@ export default function Home() {
                     </button>
 
                     <button
-                        className="w-full md:w-auto md:ml-5 p-3.5 md:p-7 rounded-4xl border border-dark-grey"
+                        className="w-auto ml-5 p-7 rounded-4xl border border-dark-grey"
                         type="button"
                     >
                         Got a VerifyMyAge account? Sign in
