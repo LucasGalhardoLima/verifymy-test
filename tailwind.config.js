@@ -24,18 +24,22 @@ module.exports = {
             },
             dropShadow: {
                 "2xl": "0px 5px 15px rgba(0, 0, 0, 0.75)",
+                "3xl": "0px 5px 25px rgba(0, 0, 0, 0.25)",
             },
             fontSize: {
                 "0.5xl": ["19px", "19px"],
+                lg: ["18px", "20px"],
+                "2xl": ["24px", "24px"],
                 "4.5xl": ["36px", "46px"],
             },
             spacing: {
-                "7.5": "30px",
+                6.5: "27px",
+                7.5: "30px",
             },
             borderRadius: {
-                '4xl': '35px',
-            }
-
+                "3.5xl": "30px",
+                "4xl": "35px",
+            },
         },
     },
     plugins: [

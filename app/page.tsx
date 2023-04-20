@@ -16,6 +16,7 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Home() {
     const router = useRouter();
     const [showPassword, setShowPassword] = useState(false);
+    const [isValidForm, setIsValidForm] = useState(true);
     const formik = useFormik({
         initialValues: {
             fullName: "",
@@ -34,13 +35,54 @@ export default function Home() {
         }),
         onSubmit: () => {
             // router.push("/verification-success");
-            console.log(formik.values);
+            console.log(formik.isValid);
+            if (formik.isValid) setIsValidForm(true);
         },
     });
 
     const handlePhoneChange = (val: string) => {
         formik.setFieldValue("mobile", val);
     };
+
+    if (isValidForm) {
+        return (
+            <main>
+                <section className="flex items-center justify-between">
+                    <Image
+                        className="hidden md:block"
+                        src="/logo.svg"
+                        width={135}
+                        height={25}
+                        alt="logo"
+                        priority
+                    />
+                </section>
+                <section className="mb-[60px]">
+                    <h1 className="mt-[51px] mb-4 text-4.5xl font-semibold">
+                        Congrats
+                    </h1>
+                    <p className="text-lg">
+                        You'll be automatically verified for all future orders.
+                        <br />
+                        Your orders will be dispatched without delay.
+                    </p>
+                </section>
+                <section>
+                    <div className="flex items-center bg-light-yellow rounded-3.5xl px-[67px] py-[74px] w-96 drop-shadow-3xl">
+                        <Image
+                            className="hidden md:block"
+                            src="/success_icon.svg"
+                            width={75}
+                            height={75}
+                            alt="success icon"
+                            priority
+                        />
+                        <h2 className="text-2xl font-semibold ml-6.5">You've been successfully verified!</h2>
+                    </div>
+                </section>
+            </main>
+        );
+    }
 
     return (
         <main>
@@ -182,7 +224,12 @@ export default function Home() {
                     <div className="bg-white-smoke md:bg-white absolute ml-4 -mt-3 px-1.5 z-10">
                         <label
                             htmlFor="password"
-                            className="block text-sm font-medium leading-6 text-dark-grey"
+                            className={`${
+                                formik.touched.password &&
+                                formik.errors.password
+                                    ? "text-warning"
+                                    : "text-dark-grey"
+                            } block text-sm font-medium leading-6`}
                         >
                             Password
                         </label>
@@ -190,7 +237,12 @@ export default function Home() {
 
                     <div className="relative mt-2 rounded-md">
                         <input
-                            className="bg-white-smoke md:bg-white block w-full rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
+                            className={`${
+                                formik.touched.password &&
+                                formik.errors.password
+                                    ? "ring-warning"
+                                    : "ring-sonic-silver focus:ring-dark-grey"
+                            } bg-white-smoke md:bg-white block w-full rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset  sm:text-sm sm:leading-6`}
                             id="password"
                             name="password"
                             type={showPassword ? "text" : "password"}
@@ -217,39 +269,13 @@ export default function Home() {
                                 />
                             )}
                         </div>
-                        {formik.touched.password && formik.errors.password ? (
-                            <p className="text-warning text-xs font-semibold ml-2">
-                                {formik.errors.password}
-                            </p>
-                        ) : null}
                     </div>
+                    {formik.touched.password && formik.errors.password ? (
+                        <p className="text-warning text-xs font-semibold ml-2">
+                            {formik.errors.password}
+                        </p>
+                    ) : null}
                 </div>
-
-                {/* <div>
-                    <label
-                        htmlFor="account-number"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                        Account number
-                    </label>
-                    <div className="relative mt-2 rounded-md shadow-sm">
-                        <input
-                            className="bg-white-smoke md:bg-white block w-full rounded-full border-0 px-4 py-3.5 text-dark-grey shadow-sm ring-1 ring-inset ring-sonic-silver placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-dark-grey sm:text-sm sm:leading-6"
-                            id="password"
-                            name="password"
-                            type="password"
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.password}
-                        />
-                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                            <EyeIcon
-                                className="h-5 w-5 text-gray-400"
-                                aria-hidden="true"
-                            />
-                        </div>
-                    </div>
-                </div> */}
 
                 <div className="relative flex items-center mt-7.5">
                     <div className="flex h-6 items-center">
