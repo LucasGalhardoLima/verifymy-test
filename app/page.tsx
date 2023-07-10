@@ -34,16 +34,37 @@ export default function Home(): JSX.Element {
       mobile: "",
       password: "",
     },
+    validate: (values) => {
+      const errors: Partial<FormValues> = {};
+
+      if (!values.mobile) {
+				errors.mobile = "Required";
+			} else if (values.mobile.length < 10) {
+				errors.mobile = "Invalid phone number";
+			}
+
+			return errors;
+    },
     validationSchema: Yup.object({
       fullName: Yup.string()
         .max(15, "Must be 15 characters or less")
         .required("Required"),
       email: Yup.string().email("Invalid email address").required("Required"),
       password: Yup.string().required("Required"),
+      mobile: Yup.string().required("Required"),
     }),
+
     onSubmit: () => {
+      // if (!formik.values.mobile) {
+      //   formik.setTouched({ mobile: true });
+      //   formik.setFieldError("mobile", "Required");
+      //   formik.setFieldTouched("mobile", true);
+      //   formik.setErrors({ mobile: "Required" });
+      // 	console.log(formik.touched.mobile, formik.errors.mobile)
+      //   return;
+      // }
       if (formik.isValid) {
-        router.push("/success");
+        return router.push("/success");
       }
     },
   });
@@ -181,7 +202,17 @@ export default function Home(): JSX.Element {
             value={formik.values.mobile}
             onChange={handlePhoneChange}
             specialLabel="Mobile"
+            containerClass={
+              formik.touched.mobile && formik.errors.mobile
+                ? "input-warning"
+                : "ring-sonic-silver focus:ring-dark-grey"
+            }
           />
+					{formik.touched.mobile && formik.errors.mobile ? (
+              <p className="text-warning text-xs font-semibold ml-2">
+                {formik.errors.mobile}
+              </p>
+            ) : null}
         </div>
 
         <div className="mb-6">

@@ -20,3 +20,15 @@
 .react-tel-input .special-label>p {
     font-weight: 500 !important;
 }
+
+.input-warning.react-tel-input {
+    @apply border-warning ring-warning ring-1 w-full rounded-full !important;
+}
+
+.input-warning.react-tel-input .form-control {
+    @apply ring-0 !important;
+}
+
+.input-warning.react-tel-input .special-label {
+    @apply text-warning !important;
+}
