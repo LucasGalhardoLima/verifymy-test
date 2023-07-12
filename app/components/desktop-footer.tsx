@@ -18,7 +18,7 @@ export default function DesktopFooter(props: Props): JSX.Element {
       >
         <Image
           className="mr-2.5"
-          src="/lock_icon.svg"
+          src="/images/lock_icon.svg"
           width={10}
           height={10}
           alt="lock icon"

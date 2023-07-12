@@ -13,8 +13,14 @@ import {
 } from "@heroicons/react/20/solid";
 import "react-phone-input-2/lib/material.css";
 import { useState } from "react";
-import MobileFooter from "./components/mobile-footer";
-import DesktopFooter from "./components/desktop-footer";
+import {
+  MobileFooter,
+  DesktopFooter,
+  HeaderSection,
+  TitleSection,
+  BackIcon,
+  MobileTitle,
+} from "./components";
 
 type FormValues = {
   fullName: string;
@@ -38,31 +44,25 @@ export default function Home(): JSX.Element {
       const errors: Partial<FormValues> = {};
 
       if (!values.mobile) {
-				errors.mobile = "Required";
-			} else if (values.mobile.length < 10) {
-				errors.mobile = "Invalid phone number";
-			}
+        errors.mobile = "Required";
+      } else if (values.mobile.length < 10) {
+        errors.mobile = "Invalid phone number";
+      }
 
-			return errors;
+      return errors;
     },
     validationSchema: Yup.object({
       fullName: Yup.string()
         .max(15, "Must be 15 characters or less")
         .required("Required"),
       email: Yup.string().email("Invalid email address").required("Required"),
-      password: Yup.string().required("Required"),
+      password: Yup.string()
+        .min(8, "Must be at least 8 characters")
+        .required("Required"),
       mobile: Yup.string().required("Required"),
     }),
 
     onSubmit: () => {
-      // if (!formik.values.mobile) {
-      //   formik.setTouched({ mobile: true });
-      //   formik.setFieldError("mobile", "Required");
-      //   formik.setFieldTouched("mobile", true);
-      //   formik.setErrors({ mobile: "Required" });
-      // 	console.log(formik.touched.mobile, formik.errors.mobile)
-      //   return;
-      // }
       if (formik.isValid) {
         return router.push("/success");
       }
@@ -75,51 +75,10 @@ export default function Home(): JSX.Element {
 
   return (
     <main>
-      <section className="flex items-center justify-between">
-        <Image
-          className="hidden md:block"
-          src="/logo.svg"
-          width={135}
-          height={25}
-          alt="logo"
-          priority
-        />
-        <div className="md:hidden flex items-center">
-          <div className="w-[24px] h-[24px] rounded-full bg-grey flex items-center justify-center hover:bg-white-smoke cursor-pointer">
-            <Image
-              src="/back_icon.svg"
-              width={9}
-              height={9}
-              alt="back icon"
-              priority
-            />
-          </div>
-          <h1 className="ml-2 text-0.5xl font-semibold">Join VerifyMyAge</h1>
-        </div>
-        <div className="shadow-lg p-3 text-center rounded-full bg-white w-[50px]">
-          <strong className="text-lg">5</strong>
-          <span className="text-sm">/5</span>
-        </div>
-      </section>
-      <p className="text-sm font-thin md:hidden ml-[35px]">
-        Let's start by setting up
-        <br /> your login details.
-      </p>
-      <section className="hidden md:flex w-[44px] h-[44px] mt-[66px] rounded-full bg-grey items-center justify-center hover:bg-white-smoke cursor-pointer">
-        <Image
-          src="/back_icon.svg"
-          width={14}
-          height={14}
-          alt="back icon"
-          priority
-        />
-      </section>
-      <section className="hidden md:block mt-5">
-        <h1 className="text-4.5xl font-semibold">Join VerifyMyAge</h1>
-        <p className="text-lg font-thin">
-          Let's start by setting up your login details.
-        </p>
-      </section>
+      <HeaderSection />
+      <MobileTitle />
+      <BackIcon />
+      <TitleSection />
       <form
         className="mt-[61px] w-full md:w-2/3"
         onSubmit={formik.handleSubmit}
@@ -199,6 +158,9 @@ export default function Home(): JSX.Element {
         <div className="mb-6">
           <PhoneInput
             country={"gb"}
+            inputProps={{
+              name: "phoneNumber",
+            }}
             value={formik.values.mobile}
             onChange={handlePhoneChange}
             specialLabel="Mobile"
@@ -208,11 +170,11 @@ export default function Home(): JSX.Element {
                 : "ring-sonic-silver focus:ring-dark-grey"
             }
           />
-					{formik.touched.mobile && formik.errors.mobile ? (
-              <p className="text-warning text-xs font-semibold ml-2">
-                {formik.errors.mobile}
-              </p>
-            ) : null}
+          {formik.touched.mobile && formik.errors.mobile ? (
+            <p className="text-warning text-xs font-semibold ml-2">
+              {formik.errors.mobile}
+            </p>
+          ) : null}
         </div>
 
         <div className="mb-6">
@@ -296,7 +258,7 @@ export default function Home(): JSX.Element {
           Secured by{" "}
           <Image
             className="ml-1.5"
-            src="/vm_logo.svg"
+            src="/images/vm_logo.svg"
             width={76}
             height={18}
             alt="logo"

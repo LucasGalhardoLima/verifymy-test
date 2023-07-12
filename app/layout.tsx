@@ -18,7 +18,7 @@ export default function RootLayout({
           <div className="hidden md:block">
             <Image
               className="bg-contain"
-              src="/bg.svg"
+              src="/images/bg.svg"
               width={960}
               height={500}
               alt="login background"
