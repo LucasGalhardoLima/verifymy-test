@@ -120,7 +120,7 @@ export default function Form(props: FormProps): JSX.Element {
       </div>
 
       <div className="mb-6">
-        <div className="bg-white-smoke md:bg-white absolute ml-4 -mt-3 px-1.5 z-10">
+        <div className="bg-white-smoke md:bg-white absolute ml-4 -mt-3 px-1.5 z-[1]">
           <label
             htmlFor="password"
             className={`${
@@ -133,7 +133,7 @@ export default function Form(props: FormProps): JSX.Element {
           </label>
         </div>
 
-        <div className="relative mt-2 rounded-md">
+        <div className="relative mt-2 rounded-md z-0">
           <input
             className={`${
               formik.touched.password && formik.errors.password
