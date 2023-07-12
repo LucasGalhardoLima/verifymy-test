@@ -54,7 +54,7 @@ export default function Form(props: FormProps): JSX.Element {
             value={formik.values.fullName}
           />
           {formik.touched.fullName && formik.errors.fullName ? (
-            <p className="text-warning text-xs font-semibold ml-2">
+            <p id="fullName-error" className="text-warning text-xs font-semibold ml-2">
               {formik.errors.fullName}
             </p>
           ) : null}
@@ -90,7 +90,7 @@ export default function Form(props: FormProps): JSX.Element {
             value={formik.values.email}
           />
           {formik.touched.email && formik.errors.email ? (
-            <p className="text-warning text-xs font-semibold ml-2">
+            <p id="email-error" className="text-warning text-xs font-semibold ml-2">
               {formik.errors.email}
             </p>
           ) : null}
@@ -113,7 +113,7 @@ export default function Form(props: FormProps): JSX.Element {
           }
         />
         {formik.touched.mobile && formik.errors.mobile ? (
-          <p className="text-warning text-xs font-semibold ml-2">
+          <p id="phoneNumber-error" className="text-warning text-xs font-semibold ml-2">
             {formik.errors.mobile}
           </p>
         ) : null}
@@ -164,7 +164,7 @@ export default function Form(props: FormProps): JSX.Element {
           </div>
         </div>
         {formik.touched.password && formik.errors.password ? (
-          <p className="text-warning text-xs font-semibold ml-2">
+          <p id="password-error" className="text-warning text-xs font-semibold ml-2">
             {formik.errors.password}
           </p>
         ) : null}
