@@ -7,6 +7,7 @@ import MobileTitle from "./mobile-title";
 import Logo from "./logo";
 import SuccessTitle from "./success-title";
 import SuccessMessageSection from "./success-message-section";
+import Form from "./form";
 
 export {
   MobileFooter,
@@ -18,4 +19,5 @@ export {
   Logo,
   SuccessTitle,
   SuccessMessageSection,
+  Form,
 };
