@@ -21,7 +21,7 @@ export const theme = extendTheme({
   colors,
 });
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({ children }: { children: React.ReactNode }): JSX.Element {
   return (
     <CacheProvider>
       <ChakraProvider theme={theme}>{children}</ChakraProvider>

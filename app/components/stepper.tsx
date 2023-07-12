@@ -1,3 +1,5 @@
+"use client";
+
 import { CircularProgress } from "@chakra-ui/react";
 
 export default function Stepper(): JSX.Element {
