@@ -1,4 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
+"use client";
+
 import DesktopFooter from "./desktop-footer";
 import MobileFooter from "./mobile-footer";
 import Image from "next/image";

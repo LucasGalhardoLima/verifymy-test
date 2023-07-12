@@ -1,10 +1,12 @@
+"use client";
+
 import Image from "next/image";
 
-type Props = {
+type DesktopFooterProps = {
   terms: boolean;
 };
 
-export default function DesktopFooter(props: Props): JSX.Element {
+export default function DesktopFooter(props: DesktopFooterProps): JSX.Element {
   const { terms } = props;
   return (
     <div className="mt-[63px] md:flex items-center hidden">

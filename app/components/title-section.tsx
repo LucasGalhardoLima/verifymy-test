@@ -1,4 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
+"use client";
+
 export default function TitleSection(): JSX.Element {
   return (
     <section className="hidden md:block mt-5">

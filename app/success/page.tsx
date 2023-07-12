@@ -1,3 +1,5 @@
+"use client";
+
 import { Logo, SuccessMessageSection, SuccessTitle } from "../components";
 
 export default function Success(): JSX.Element {

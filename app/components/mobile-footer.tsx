@@ -1,10 +1,12 @@
+"use client";
+
 import Image from "next/image";
 
-type Props = {
+type MobileFooterProps = {
   terms: boolean;
 };
 
-export default function MobileFooter(props: Props): JSX.Element {
+export default function MobileFooter(props: MobileFooterProps): JSX.Element {
   const { terms } = props;
   return (
     <div className="md:hidden grid-cols-1 absolute bottom-0 left-0 w-full px-6 pb-5 bg-white">

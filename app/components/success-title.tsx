@@ -1,4 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
+"use client";
+
 export default function SuccessTitle(): JSX.Element {
   return (
     <section className="mb-[60px]">
