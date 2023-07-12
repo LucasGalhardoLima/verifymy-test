@@ -6,6 +6,8 @@ export const metadata = {
   description: "Login",
 };
 
+import { Providers } from "./providers";
+
 export default function RootLayout({
   children,
 }: {
@@ -26,7 +28,7 @@ export default function RootLayout({
             />
           </div>
           <div className="pl-5 md:pl-6 pr-5 pt-5 md:py-12 md:pr-12 lg:pl-[89px] bg-white-smoke md:bg-white h-screen">
-            {children}
+            <Providers>{children}</Providers>
           </div>
         </div>
       </body>

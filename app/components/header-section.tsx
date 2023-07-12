@@ -1,6 +1,7 @@
-"use client";
+
 
 import Image from "next/image";
+import Stepper from "./stepper";
 
 export default function HeaderSection(): JSX.Element {
   return (
@@ -25,10 +26,7 @@ export default function HeaderSection(): JSX.Element {
         </div>
         <h1 className="ml-2 text-0.5xl font-semibold">Join VerifyMyAge</h1>
       </div>
-      <div className="shadow-lg p-3 text-center rounded-full bg-white w-[50px]">
-        <strong className="text-lg">5</strong>
-        <span className="text-sm">/5</span>
-      </div>
+      <Stepper />
     </section>
   );
 }

@@ -2,33 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .react-tel-input .form-control {
-    @apply bg-white-smoke md:bg-white rounded-full w-full py-3.5 border-0 shadow-sm ring-1 ring-inset ring-sonic-silver !important;
+  @apply bg-white-smoke md:bg-white rounded-full w-full py-3.5 border-0 shadow-sm ring-1 ring-inset ring-sonic-silver !important;
 }
 
 .react-tel-input .form-control:focus {
-    @apply ring-2 border-dark-grey ring-dark-grey !important;
+  @apply ring-2 border-dark-grey ring-dark-grey !important;
 }
 
 .react-tel-input .special-label {
-    @apply bg-white-smoke md:bg-white text-dark-grey top-[-10px] left-[16px] !important;
-    font-weight: 600 !important;
-    font-size: 12px !important;
+  @apply bg-white-smoke md:bg-white text-dark-grey top-[-10px] left-[16px] !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
 }
 
-.react-tel-input .special-label>p {
-    font-weight: 500 !important;
+.react-tel-input .special-label > p {
+  font-weight: 500 !important;
 }
 
 .input-warning.react-tel-input {
-    @apply border-warning ring-warning ring-1 w-full rounded-full !important;
+  @apply border-warning ring-warning ring-1 w-full rounded-full !important;
 }
 
 .input-warning.react-tel-input .form-control {
-    @apply ring-0 !important;
+  @apply ring-0 !important;
 }
 
 .input-warning.react-tel-input .special-label {
-    @apply text-warning !important;
+  @apply text-warning !important;
+}
+
+.css-ol3i12 {
+    stroke: #fff;
 }
